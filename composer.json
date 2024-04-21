@@ -1,0 +1,22 @@
+{
+    "name": "hankz/laravel-plus-api",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hankz\\LaravelPlusApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "hankz",
+            "email": "hankz1108@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "require-dev": {
+        "laravel/framework": "7"
+    }
+}
