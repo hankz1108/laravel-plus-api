@@ -1,7 +1,14 @@
 {
     "name": "hankz/laravel-plus-api",
+    "description": "Convenient Laravel API response tools and automated error handling functionality are provided.",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "laravel-plus",
+        "api",
+        "response"
+    ],
     "autoload": {
         "psr-4": {
             "Hankz\\LaravelPlusApi\\": "src/"
@@ -14,9 +21,14 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "laravel/framework": ">=7"
     },
-    "require-dev": {
-        "laravel/framework": "7"
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hankz\\LaravelPlusApi\\LaravelPlusApiServiceProvider"
+            ]
+        }
     }
 }
