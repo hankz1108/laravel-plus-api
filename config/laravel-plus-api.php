@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Response;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -32,15 +34,25 @@ return [
 
     'default_response' => [
         'success' => [
-            'api_code' => 0,
-            'http_code' => 200,
+            'api_code' => 200,
+            'http_code' => Response::HTTP_OK,
             'message' => 'Success',
         ],
 
         'error' => [
-            'api_code' => 1,
-            'http_code' => 400,
-            'message' => 'Unknown error',
+            'api_code' => 500,
+            'http_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+            'message' => 'Unknown server error',
         ],
-    ]
+
+        'unauthenticated' => [
+            'api_code' => 401,
+            'http_code' => Response::HTTP_UNAUTHORIZED,
+            'message' => 'Unauthenticated',
+        ],
+
+        'validation_fail' => [
+            'api_code' => 422,
+        ],
+    ],
 ];
