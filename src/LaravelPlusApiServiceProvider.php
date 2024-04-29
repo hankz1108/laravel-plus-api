@@ -15,6 +15,10 @@ class LaravelPlusApiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/laravel-plus-api.php', 'laravel-plus-api');
+
+        $this->publishes([
+            __DIR__ . '/../config/laravel-plus-api.php' => config_path('laravel-plus-api.php'),
+        ], 'default');
     }
 
     /**

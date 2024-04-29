@@ -2,11 +2,10 @@
 
 namespace Hankz\LaravelPlusApi\Traits;
 
-use Hankz\LaravelPlusApi\Classes\ApiResponseBuilder;
+use Hankz\LaravelPlusApi\Classes\BaseApiResponseBuilder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\ValidationException;
 
-trait ApiResponse
+trait ApiResponsible
 {
     /**
      * Return success response.
@@ -14,7 +13,7 @@ trait ApiResponse
      * @param object|array|null $data     array of primitives and supported objects to be returned in 'data' node
      *                                    of the JSON response, single supported object or @null if there's no
      *                                    to be returned
-     * @param string|int|null   $apiCode  API code to be returned or @null to use value of config('plus-api.default_response.success.api_code')
+     * @param string|int|null   $apiCode  API code to be returned or @null to use value of config('laravel-plus-api.default_response.success.api_code')
      * @param int|null          $httpCode HTTP code to be used for HttpResponse sent or @null
      *                                    for default DEFAULT_HTTP_CODE_OK
      * @param array|null        $headers  Http Header
@@ -26,7 +25,7 @@ trait ApiResponse
         string $message = null,
         array $headers = null
     ): JsonResponse {
-        return ApiResponseBuilder::asSuccess($apiCode)
+        return BaseApiResponseBuilder::asSuccess($apiCode)
             ->withData($data)
             ->withHttpCode($httpCode)
             ->withMessage($message)
@@ -46,44 +45,16 @@ trait ApiResponse
      * @param int|null          $headers  Http Header
      */
     public static function error(
-        string $apiCode,
+        string $apiCode = null,
         int $httpCode = null,
         string $message = null,
         $data = null,
         array $headers = null
     ): JsonResponse {
-        return ApiResponseBuilder::asError($apiCode)
+        return BaseApiResponseBuilder::asError($apiCode)
             ->withMessage($message)
             ->withHttpCode($httpCode)
             ->withData($data)
-            ->withHttpHeaders($headers)
-            ->build();
-    }
-
-    /**
-     * return validation error response.
-     */
-    public static function validationError(ValidationException $e): JsonResponse
-    {
-        return ApiResponseBuilder::asError(config('plus-api.default_response.validation_fail.api_code'))
-            ->withErrors($e->errors())
-            ->withHttpCode($e->status)
-            ->build();
-    }
-
-    public static function exceptionError(
-        array $debug_data = null,
-        string $apiCode = null,
-        int $httpCode,
-        string $message = null,
-        array $headers = []
-    ): JsonResponse {
-        $apiCode = $apiCode ?? config('plus-api.default_response.error.api_code');
-
-        return ApiResponseBuilder::asError($apiCode)
-            ->withDebugData($debug_data)
-            ->withHttpCode($httpCode)
-            ->withMessage($message)
             ->withHttpHeaders($headers)
             ->build();
     }
