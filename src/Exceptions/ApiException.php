@@ -3,7 +3,7 @@
 namespace Hankz\LaravelPlusApi\Exceptions;
 
 use Exception;
-use Hankz\LaravelPlusApi\Traits\ApiResponse;
+use Hankz\LaravelPlusApi\Classes\ApiResponseBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -11,8 +11,6 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 abstract class ApiException extends Exception implements HttpExceptionInterface
 {
-    use ApiResponse;
-
     public const API_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
 
     public const HTTP_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
@@ -57,11 +55,22 @@ abstract class ApiException extends Exception implements HttpExceptionInterface
      */
     public function render(Request $request): JsonResponse
     {
-        return $this->error(
+        return ApiResponseBuilder::exceptionError(
+            $this,
             static::API_CODE,
             static::HTTP_CODE,
             $this->message,
             $this->data
         );
+    }
+
+    public function getStatusCode(): int
+    {
+        return static::HTTP_CODE;
+    }
+
+    public function getHeaders(): array
+    {
+        return [];
     }
 }
