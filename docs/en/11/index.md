@@ -8,6 +8,9 @@ Run the Composer require command from the Terminal:
 composer require hankz/laravel-plus-api
 ```
 
+> [!TIP]
+> After Laravel 11, you may need to use `php artisan install:api` first to utilize the API.
+
 ### 2. Setup
 
 This package supports Laravel's auto-discovery feature and it's ready to use once installed.
@@ -57,6 +60,14 @@ Set exception Handler.
 in `bootstrap/app.php`，add：
 
 ```php
+use Hankz\LaravelPlusApi\Classes\ApiResponseBuilder;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+
+// other code...
+
 ->withExceptions(function (Exceptions $exceptions) {
     $exceptions->render(function (Throwable $throwable, Request $request) {
 
