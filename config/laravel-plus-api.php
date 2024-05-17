@@ -5,6 +5,7 @@ use Illuminate\Http\Response;
 return [
     /*
     |--------------------------------------------------------------------------
+    | Specify the structure of the Response return
     | 指定 Response 回傳結構
     |--------------------------------------------------------------------------
     |   {
@@ -27,28 +28,34 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Show exception details
+    | 發生錯誤時是否回傳詳細錯誤訊息
     |--------------------------------------------------------------------------
-    |   發生錯誤時是否回傳詳細錯誤訊息
     */
     'show_debug_data' => config('app.debug', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Set default return messages for different scenarios
+    | 設置不同狀況默認的回傳訊息
+    |--------------------------------------------------------------------------
+    */
     'default_response' => [
         'success' => [
             'api_code' => 200,
             'http_code' => Response::HTTP_OK,
-            'message' => 'Success',
+            'message' => 'Success.',
         ],
 
         'error' => [
             'api_code' => 500,
             'http_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-            'message' => 'Unknown server error',
+            'message' => 'Unknown server error.',
         ],
 
         'unauthenticated' => [
             'api_code' => 401,
             'http_code' => Response::HTTP_UNAUTHORIZED,
-            'message' => 'Unauthenticated',
+            'message' => 'Unauthenticated.',
         ],
 
         'validation_fail' => [

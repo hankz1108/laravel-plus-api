@@ -25,10 +25,10 @@ trait ApiResponsible
         string $message = null,
         array $headers = null
     ): JsonResponse {
-        return BaseApiResponseBuilder::asSuccess($apiCode)
+        return BaseApiResponseBuilder::asSuccess($apiCode ?? config('laravel-plus-api.default_response.success.api_code'))
             ->withData($data)
-            ->withHttpCode($httpCode)
-            ->withMessage($message)
+            ->withHttpCode($httpCode ?? config('laravel-plus-api.default_response.success.http_code'))
+            ->withMessage($message ?? config('laravel-plus-api.default_response.success.message'))
             ->withHttpHeaders($headers)
             ->build();
     }
@@ -51,9 +51,9 @@ trait ApiResponsible
         $data = null,
         array $headers = null
     ): JsonResponse {
-        return BaseApiResponseBuilder::asError($apiCode)
-            ->withMessage($message)
-            ->withHttpCode($httpCode)
+        return BaseApiResponseBuilder::asError($apiCode ?? config('laravel-plus-api.default_response.error.api_code'))
+            ->withMessage($message ?? config('laravel-plus-api.default_response.error.message'))
+            ->withHttpCode($httpCode ?? config('laravel-plus-api.default_response.error.http_code'))
             ->withData($data)
             ->withHttpHeaders($headers)
             ->build();
