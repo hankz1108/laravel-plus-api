@@ -11,13 +11,25 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 abstract class ApiException extends Exception implements HttpExceptionInterface
 {
-    // return api code, override if needed
+    /**
+     * return api code, override if needed.
+     *
+     * @var int
+     */
     public const API_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
 
-    // return http code, override if needed
+    /**
+     * return http code, override if needed.
+     *
+     * @var int
+     */
     public const HTTP_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
 
-    // return message, override if needed
+    /**
+     * return message, override if needed.
+     *
+     * @var string
+     */
     public const API_MESSAGE = '';
 
     /**
@@ -58,11 +70,17 @@ abstract class ApiException extends Exception implements HttpExceptionInterface
     {
         return ApiResponseBuilder::exceptionError(
             $this,
-            static::API_CODE,
-            static::HTTP_CODE,
+            $this->getApiCode(),
+            $this->getStatusCode(),
             $this->message,
-            $this->data
+            $this->data,
+            $this->getHeaders(),
         );
+    }
+
+    public function getApiCode(): int
+    {
+        return static::API_CODE;
     }
 
     public function getStatusCode(): int
