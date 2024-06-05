@@ -180,7 +180,11 @@ class BaseApiResponseBuilder
         return response()
             ->json(
                 $this->response,
-                $this->httpCode ?? $this->success ? config('laravel-plus-api.default_response.success.http_code') : config('laravel-plus-api.default_response.error.http_code'),
+                $this->httpCode ?? (
+                    $this->success ?
+                    config('laravel-plus-api.default_response.success.http_code') :
+                    config('laravel-plus-api.default_response.error.http_code')
+                ),
                 $this->httpHeaders
             );
     }
