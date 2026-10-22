@@ -27,11 +27,11 @@ class ApiResponseBuilder
      * @param object|array|null $data
      */
     public static function exceptionError(
-        Throwable $throwable = null,
-        string $apiCode = null,
+        ?Throwable $throwable,
+        ?string $apiCode,
         int $httpCode,
-        string $message = null,
-        mixed $data = null,
+        ?string $message = null,
+        $data = null,
         array $headers = []
     ): JsonResponse {
         $apiCode = $apiCode ?? config('laravel-plus-api.default_response.error.api_code');

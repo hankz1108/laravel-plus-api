@@ -46,7 +46,7 @@ abstract class ApiException extends Exception implements HttpExceptionInterface
      */
     protected $data;
 
-    public function __construct(string $message = null, $data = null)
+    public function __construct(?string $message = null, $data = null)
     {
         parent::__construct($message);
 
