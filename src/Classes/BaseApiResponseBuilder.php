@@ -73,7 +73,7 @@ class BaseApiResponseBuilder
     /**
      * Private constructor. Use asSuccess() and asError() static methods to obtain instance of Builder.
      */
-    public function __construct(bool $success = true, string $apiCode = null)
+    public function __construct(bool $success = true, ?string $apiCode = null)
     {
         $this->success = $success;
         $this->api_code = $apiCode ?? (
@@ -81,31 +81,31 @@ class BaseApiResponseBuilder
         );
     }
 
-    public static function asSuccess(string $apiCode = null): self
+    public static function asSuccess(?string $apiCode = null): self
     {
         return new self(true, $apiCode ?? config('laravel-plus-api.default_response.success.api_code'));
     }
 
-    public static function asError(string $apiCode = null): self
+    public static function asError(?string $apiCode = null): self
     {
         return new self(false, $apiCode ?? config('laravel-plus-api.default_response.error.api_code'));
     }
 
-    public function withHttpCode(int $httpCode = null): self
+    public function withHttpCode(?int $httpCode = null): self
     {
         $this->httpCode = $httpCode;
 
         return $this;
     }
 
-    public function withHttpHeaders(array $httpHeaders = null): self
+    public function withHttpHeaders(?array $httpHeaders = null): self
     {
         $this->httpHeaders = $httpHeaders ?? [];
 
         return $this;
     }
 
-    public function withMessage(string $message = null): self
+    public function withMessage(?string $message = null): self
     {
         $this->message = $message;
 
@@ -122,14 +122,14 @@ class BaseApiResponseBuilder
         return $this;
     }
 
-    public function withDebugData(array $debugData = null): self
+    public function withDebugData(?array $debugData = null): self
     {
         $this->debugData = $debugData;
 
         return $this;
     }
 
-    public function withErrors(array $errors = null): self
+    public function withErrors(?array $errors = null): self
     {
         $this->errors = $errors;
 
